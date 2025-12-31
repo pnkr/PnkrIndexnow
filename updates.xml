@@ -11,7 +11,7 @@
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/pnkr/PnkrIndexNow/releases/download/1.0.1/pnkrindexnow-1.0.1.zip</downloadurl>
 		</downloads>
-		<sha256>ea05ec58b7cb59eca646c492e381ef838abaaa6c44bc56e7ca759015a41946d2</sha256>
+		<sha256>9262c6946f0500b610462b3cc1505dc36df268f887aef2812cbd74562d014488</sha256>
 		<tags>
 			<tag>stable</tag>
 		</tags>
