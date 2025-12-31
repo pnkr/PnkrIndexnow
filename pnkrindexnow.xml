@@ -80,7 +80,7 @@
         </fields>
     </config>
 <updateservers>
-	<server type="extension" name="Pnkr IndexNow">https://raw.githubusercontent.com/pnkr/PnkrIndexNow/master/updates.xml</server>
+	<server type="extension" name="Pnkr IndexNow">https://raw.githubusercontent.com/pnkr/PnkrIndexNow/main/updates.xml</server>
 </updateservers>
 
 </extension>
