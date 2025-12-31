@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="content" method="upgrade">
+    <name>PLG_CONTENT_PNKRINDEXNOW</name>
+    <author>Panagiotis Kiriakopoulos</author>
+    <creationDate>December 2025</creationDate>
+    <copyright>Copyright (C) 2025. Panagiotis Kiriakopoulos. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later</license>
+    <authorEmail>info@joomlaboratory.com</authorEmail>
+    <authorUrl>https://www.joomlaboratory.com</authorUrl>
+    <version>1.0.0</version>
+    <description>PLG_CONTENT_PNKRINDEXNOW_XML_DESCRIPTION</description>
+    <namespace path="src">Pnkr\Plugin\Content\Pnkrindexnow</namespace>
+    <files>
+        <folder plugin="pnkrindexnow">services</folder>
+        <folder>src</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/plg_content_pnkrindexnow.ini</language>
+        <language tag="en-GB">language/en-GB/plg_content_pnkrindexnow.sys.ini</language>
+        <language tag="el-GR">language/el-GR/plg_content_pnkrindexnow.ini</language>
+        <language tag="el-GR">language/el-GR/plg_content_pnkrindexnow.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="api_key"
+                    type="text"
+                    label="PLG_CONTENT_PNKRINDEXNOW_FIELD_API_KEY_LABEL"
+                    description="PLG_CONTENT_PNKRINDEXNOW_FIELD_API_KEY_DESC"
+                    required="true"
+                    filter="string"
+                />
+                <field
+                    name="search_engine"
+                    type="list"
+                    label="PLG_CONTENT_PNKRINDEXNOW_FIELD_SEARCH_ENGINE_LABEL"
+                    description="PLG_CONTENT_PNKRINDEXNOW_FIELD_SEARCH_ENGINE_DESC"
+                    default="api.indexnow.org"
+                >
+                    <option value="api.indexnow.org">IndexNow (All engines)</option>
+                    <option value="www.bing.com">Bing</option>
+                    <option value="search.yahoo.com">Yahoo</option>
+                    <option value="yandex.com">Yandex</option>
+                </field>
+                <field
+                    name="notify_on_publish_only"
+                    type="radio"
+                    label="PLG_CONTENT_PNKRINDEXNOW_FIELD_PUBLISH_ONLY_LABEL"
+                    description="PLG_CONTENT_PNKRINDEXNOW_FIELD_PUBLISH_ONLY_DESC"
+                    default="1"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                    name="notify_on_remove"
+                    type="radio"
+                    label="PLG_CONTENT_PNKRINDEXNOW_FIELD_NOTIFY_REMOVE_LABEL"
+                    description="PLG_CONTENT_PNKRINDEXNOW_FIELD_NOTIFY_REMOVE_DESC"
+                    default="1"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                    name="debug_mode"
+                    type="radio"
+                    label="PLG_CONTENT_PNKRINDEXNOW_FIELD_DEBUG_MODE_LABEL"
+                    description="PLG_CONTENT_PNKRINDEXNOW_FIELD_DEBUG_MODE_DESC"
+                    default="0"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+<updateservers>
+	<server type="extension" name="Pnkr IndexNow">https://raw.githubusercontent.com/pnkr/PnkrIndexNow/master/updates.xml</server>
+</updateservers>
+
+</extension>
