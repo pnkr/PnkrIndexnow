@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelogs>
+    <changelog>
+        <element>plg_content_pnkrindexnow</element>
+        <type>plugin</type>
+        <version>1.1.1</version>
+        <note>
+            <item>Fixed: Error when saving articles - metadata field handling corrected to support both JSON string and Registry object formats</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>plg_content_pnkrindexnow</element>
+        <type>plugin</type>
+        <version>1.1.0</version>
+        <note>
+            <item>Added: Support for article deletion notifications</item>
+            <item>Added: Notify on remove/unpublish functionality</item>
+            <item>Added: Robots noindex detection to skip indexing articles marked with noindex</item>
+            <item>Improved: Security enhancements for key file creation</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>plg_content_pnkrindexnow</element>
+        <type>plugin</type>
+        <version>1.0.0</version>
+        <note>
+            <item>Initial release</item>
+            <item>Added: IndexNow API integration for automatic article indexing</item>
+            <item>Added: Support for multiple search engines (IndexNow, Bing, Yahoo, Yandex)</item>
+            <item>Added: Configurable publish-only notification mode</item>
+            <item>Added: Debug mode for troubleshooting</item>
+        </note>
+    </changelog>
+</changelogs>

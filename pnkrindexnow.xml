@@ -7,9 +7,10 @@
     <license>GNU General Public License version 2 or later</license>
     <authorEmail>info@joomlaboratory.com</authorEmail>
     <authorUrl>https://www.joomlaboratory.com</authorUrl>
-    <version>1.0.1</version>
+    <version>1.1.1</version>
     <description>PLG_CONTENT_PNKRINDEXNOW_XML_DESCRIPTION</description>
     <namespace path="src">Pnkr\Plugin\Content\Pnkrindexnow</namespace>
+    <changelogurl>https://raw.githubusercontent.com/pnkr/PnkrIndexNow/main/changelog.xml</changelogurl>
     <files>
         <folder plugin="pnkrindexnow">services</folder>
         <folder>src</folder>

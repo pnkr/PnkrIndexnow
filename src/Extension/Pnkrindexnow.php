@@ -77,6 +77,12 @@ final class Pnkrindexnow extends CMSPlugin implements SubscriberInterface
             return;
         }
 
+        // Check if article is marked with noindex
+        if ($this->isNoindexArticle($article)) {
+            $this->logDebug('Article is marked with noindex, skipping IndexNow notification');
+            return;
+        }
+
         // Generate the article URL
         $url = $this->getArticleUrl($article);
 
@@ -124,6 +130,12 @@ final class Pnkrindexnow extends CMSPlugin implements SubscriberInterface
             $article = $model->getItem($pk);
 
             if (!$article) {
+                continue;
+            }
+
+            // Skip articles marked with noindex when publishing
+            if ($isPublish && $this->isNoindexArticle($article)) {
+                $this->logDebug('Article is marked with noindex, skipping IndexNow notification');
                 continue;
             }
 
@@ -213,6 +225,46 @@ final class Pnkrindexnow extends CMSPlugin implements SubscriberInterface
         );
         
         return $link;
+    }
+
+    /**
+     * Check if an article is marked with noindex
+     *
+     * @param   object  $article  The article object
+     *
+     * @return  bool  True if the article should not be indexed
+     *
+     * @since   1.2.0
+     */
+    private function isNoindexArticle($article): bool
+    {
+        // In Joomla, metadata is stored as JSON string or Registry object
+        if (empty($article->metadata)) {
+            return false;
+        }
+
+        // Handle both string (JSON) and Registry object
+        if (is_string($article->metadata)) {
+            $metadata = json_decode($article->metadata, true);
+            if (!is_array($metadata)) {
+                return false;
+            }
+            $robots = $metadata['robots'] ?? '';
+        } else {
+            // It's a Registry object
+            $robots = $article->metadata->get('robots');
+        }
+
+        // If no robots setting, not marked as noindex
+        if (empty($robots)) {
+            return false;
+        }
+
+        $robots = (string) $robots;
+        
+        // Check if noindex is in the robots meta value
+        // It could be "noindex, follow" or "noindex, nofollow"
+        return stripos($robots, 'noindex') !== false;
     }
 
     /**
@@ -385,7 +437,23 @@ final class Pnkrindexnow extends CMSPlugin implements SubscriberInterface
             return false;
         }
 
-        $keyFile = JPATH_ROOT . '/' . $apiKey . '.txt';
+        // Security: Validate API key format - only alphanumeric characters, dashes, underscores
+        // IndexNow keys are typically 32-128 character hexadecimal or alphanumeric strings
+        if (!preg_match('/^[a-zA-Z0-9_-]{8,128}$/', $apiKey)) {
+            $this->logDebug('Invalid API key format. Only alphanumeric characters, dashes, and underscores are allowed.');
+            return false;
+        }
+
+        // Security: Use basename to prevent path traversal
+        $safeFilename = basename($apiKey) . '.txt';
+        $keyFile = JPATH_ROOT . '/' . $safeFilename;
+        
+        // Security: Verify the resolved path is still under JPATH_ROOT
+        $realKeyFile = realpath(dirname($keyFile)) . '/' . basename($keyFile);
+        if (strpos($realKeyFile, realpath(JPATH_ROOT)) !== 0) {
+            $this->logDebug('Security: Key file path is outside root directory');
+            return false;
+        }
         
         if (!file_exists($keyFile)) {
             return (bool) file_put_contents($keyFile, $apiKey);
