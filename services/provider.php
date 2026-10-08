@@ -4,7 +4,7 @@
  * @package     Pnkr.Plugin
  * @subpackage  Content.Pnkrindexnow
  *
- * @copyright   Copyright (C) 2025 Panagiotis Kiriakopoulos Joomlaboratory.com. All rights reserved.
+ * @copyright   Copyright (C) 2025 Panagiotis Kiriakopoulos. All rights reserved.
  * @license     GNU General Public License version 2 or later
  */
 
@@ -15,7 +15,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Event\DispatcherInterface;
 use Pnkr\Plugin\Content\Pnkrindexnow\Extension\Pnkrindexnow;
 
 return new class () implements ServiceProviderInterface {
@@ -32,16 +31,14 @@ return new class () implements ServiceProviderInterface {
     {
         $container->set(
             PluginInterface::class,
-            function (Container $container) {
-                $dispatcher = $container->get(DispatcherInterface::class);
+            $container->lazy(Pnkrindexnow::class, function (Container $container) {
                 $plugin = new Pnkrindexnow(
-                    $dispatcher,
                     (array) PluginHelper::getPlugin('content', 'pnkrindexnow')
                 );
                 $plugin->setApplication(Factory::getApplication());
 
                 return $plugin;
-            }
+            })
         );
     }
 };

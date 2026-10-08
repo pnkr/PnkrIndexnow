@@ -3,6 +3,41 @@
     <changelog>
         <element>plg_content_pnkrindexnow</element>
         <type>plugin</type>
+        <version>2.0.0</version>
+        <security>
+            <item>Escaped all values shown in administrator messages (URLs, exception messages); raw API responses are no longer shown in the UI and go to the plugin log file instead (XSS fix)</item>
+            <item>Articles that guests cannot view (non-public access level or unpublished/non-public category) are never submitted to search engines</item>
+            <item>Articles with a future Start Publishing date or a past Finish Publishing date are no longer submitted</item>
+            <item>Search engine endpoint is checked against an allowlist before any request is sent</item>
+            <item>Added a 10 second timeout to the IndexNow request so a slow endpoint cannot block saving articles</item>
+            <item>Key file is never overwritten if a file with the same name but different content exists; key file is written with the Joomla Filesystem API</item>
+            <item>API key is validated when the plugin settings are saved (8-128 letters, digits or dashes, as required by the IndexNow specification)</item>
+            <item>Notification messages are shown only in the administrator; frontend, API and CLI requests no longer receive them</item>
+        </security>
+        <addition>
+            <item>Joomla 6 install script that blocks installation on Joomla older than 6.0 or PHP older than 8.3</item>
+            <item>Key file is created when the plugin settings are saved, and the file of a replaced key is removed</item>
+            <item>Noindex detection now also honours the category robots setting and the global robots setting</item>
+            <item>Multilingual sites: submitted URLs include the article language</item>
+            <item>Plugin log file administrator/logs/plg_content_pnkrindexnow.php (errors always, everything in debug mode)</item>
+        </addition>
+        <change>
+            <item>Requires Joomla 6.0 or later and PHP 8.3 or later; Joomla 5 is no longer supported (use version 1.1.1)</item>
+            <item>Event handlers use the typed Joomla event classes (AfterSaveEvent, AfterChangeStateEvent, AfterDeleteEvent)</item>
+            <item>Service provider uses the Joomla 6 plugin constructor and lazy loading</item>
+            <item>HTTP client uses the Joomla Framework HttpFactory instead of the deprecated CMS HttpFactory</item>
+            <item>Batch publish/unpublish sends all URLs in a single IndexNow request instead of one request per article</item>
+            <item>URLs use https when the site forces SSL</item>
+        </change>
+        <fix>
+            <item>Changing the state of articles no longer uses the Site article model, which could throw a 404 error after the state was already saved</item>
+            <item>Update server entry uses folder/client instead of the invalid group tag, so Joomla can match updates reliably</item>
+            <item>Removed unused and duplicated language strings; clarified the debug mode and removal notification descriptions</item>
+        </fix>
+    </changelog>
+    <changelog>
+        <element>plg_content_pnkrindexnow</element>
+        <type>plugin</type>
         <version>1.1.1</version>
         <note>
             <item>Fixed: Error when saving articles - metadata field handling corrected to support both JSON string and Registry object formats</item>
